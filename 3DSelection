@@ -30,9 +30,12 @@ func _physics_process(delta):
 		
 	if Input.is_action_just_pressed("rightclick") && selection.size() != 0:
 		for selected in selection:
-			RaycastMouseClick()
-			selected.beanSoldier.speed = 600
-			selected.beanSoldier.beanNA.set_target_position(raycastMouseClick3DResult)
+			if selected.SR.visible == false:
+				return
+			else:
+				RaycastMouseClick()
+				selected.beanSoldier.speed = 600
+				selected.beanSoldier.beanNA.set_target_position(raycastMouseClick3DResult)
 
 func SelectUnits():
 	newSelection = []
