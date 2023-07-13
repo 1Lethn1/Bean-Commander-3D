@@ -11,6 +11,8 @@ var selection = []
 var newSelection = []
 var focusFireTargetCollider
 
+var sideBarMouseEntered = false
+
 @onready var mouseRaycastGroup = get_tree().get_nodes_in_group("MouseRaycast")
 @onready var mouseRaycast = mouseRaycastGroup[0]
 
@@ -71,7 +73,7 @@ func SelectUnits():
 			
 func GetUnitUnderMouse():
 	var result = mouseClickCollider3DResult
-	if result.is_in_group("Selectable"):
+	if result != null && result.is_in_group("Selectable"):
 		return result.collider
 
 func GetUnitsInBox(topLeft, bottomRight):
@@ -120,3 +122,11 @@ func RaycastNodePosition():
 	var raycastOrigin = camera.project_ray_origin(mousePosition)
 	var raycastTarget = raycastOrigin + camera.project_ray_normal(mousePosition) * 5000
 	mouseRaycast.target_position = Vector3(raycastTarget)
+
+
+func _on_side_bar_control_mouse_entered():
+	sideBarMouseEntered = true
+
+
+func _on_side_bar_control_mouse_exited():
+	sideBarMouseEntered = false
